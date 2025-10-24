@@ -589,10 +589,12 @@ fieldset {
 
     .recipe-hero {
         grid-template-columns: 1fr;
+        height: auto;
     }
 
     .recipe-hero-right {
         grid-column: 1;
+        margin-bottom: 30px;
         height: 100%;
         width: auto;
     }
