@@ -522,16 +522,6 @@ fieldset {
     font-family: var(--font-text);
 }
 
-@media (max-width: 1600px) {
-    .home-hero, .top-container, .help-heading {
-        height: 20vh;
-    }
-
-    .recipe-hero {
-        height: 40vh;
-    }
-}
-
 @media (max-width: 1500px) {
     .home-hero {
         margin-bottom: 0px;
