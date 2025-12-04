@@ -1,5 +1,9 @@
 <?php
-    require 'search.php';
+    require 'db.php';
+
+    $stmt = $connection->prepare("SELECT * FROM recipes");
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +44,7 @@
 
     <main>
     <section class="side-bar recipes-section">
-        <article class="recipes-filter-section">
+        <section class="recipes-filter-section">
             <form class="recipe-filter-form" action="/recipes" method="GET">
                 <fieldset>
                     <h4>Filter Recipes</h4>
@@ -80,10 +84,10 @@
                     </div> -->
                 </fieldset>
             </form>
-</article>
+        </section>
             <div class="recipe-container">
                 <?php
-                if (isset($result) && $result->num_rows > 0) {
+                if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
 
                     $recipe_link = "recipe.php?id=" . $row['id'];

@@ -32,7 +32,7 @@ $result = $stmt->get_result();
 
         <nav>
             <ul class="nav-links">
-                <li><a href="all-recipes.html">All Recipes</a></li>
+                <li><a href="all-recipes.php">All Recipes</a></li>
                 <li><a href="help.html">Help</a></li>
             </ul>
         </nav>

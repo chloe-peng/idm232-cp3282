@@ -337,7 +337,7 @@ button {
     border: none;
 }
 
-.recipes-results-section > .recipes-section{
+.side-bar.recipes-section{
     grid-column: 3;
     grid-row: 1;
 

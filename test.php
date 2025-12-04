@@ -25,3 +25,19 @@ if ($connection->connect_error)
     die("Connection failed: " . $connection->connect_error);
 
 ?>
+
+$search_query = 'apple';
+// Assume $all_products is an array of arrays/objects fetched from the DB
+// $all_products = [ ['name' => 'Red delicious apple'], ['name' => 'Orange Juice'], ... ];
+
+$filtered_results = array_filter($all_products, function ($product) use ($search_query) {
+    // Check if the search query is found anywhere in the 'name' column
+    // stripos() returns 0 for a match at the start of the string, or other positive integers
+    // We use !== false to catch all valid match positions, including 0
+    if (stripos($product['name'], $search_query) !== false) {
+        return true; // Keep this row
+    }
+    return false; // Filter this row out
+});
+
+// $filtered_results now contains only the rows matching the search query

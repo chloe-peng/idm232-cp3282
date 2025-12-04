@@ -48,7 +48,7 @@ $image_folder_link = "./media/recipe-images/Recipe_" . $recipe['img_1'] . "_with
 
         <nav>
             <ul class="nav-links">
-                <li><a href="all-recipes.html">All Recipes</a></li>
+                <li><a href="all-recipes.php">All Recipes</a></li>
                 <li><a href="help.html">Help</a></li>
             </ul>
         </nav>
