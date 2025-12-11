@@ -1,11 +1,10 @@
 <?php
     require 'db.php';
 
-  // Processing data from a login form
+  // processing data from search
   if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $search = '%'. $_POST['search-bar'] .'%' ?? '';
-
-
+    $search = '%'. $_POST['search-bar'] . '%' ?? '';
+    
 
     $stmt = $connection->prepare("SELECT * FROM recipes
         WHERE title LIKE ?
@@ -19,6 +18,7 @@
     $stmt->bind_param("sssssss", $search, $search, $search, $search, $search, $search, $search);
     $stmt->execute();
     $result = $stmt->get_result();
+    $result_count = $result->num_rows;
   }
 
 ?>

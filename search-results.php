@@ -1,5 +1,7 @@
 <?php
     require 'search.php';
+
+    $connection->close();
 ?>
 
 <!DOCTYPE html>
@@ -26,61 +28,73 @@
 
         <nav>
             <ul class="nav-links">
-                <li><a href="all-recipes.php">All Recipes</a></li>
                 <li><a href="help.html">Help</a></li>
             </ul>
         </nav>
     </header>
-    <section class="top-container">
-        <div class="text-container">
-            <h2>Search Results</h2>
-            <h4>Showing # of results for your search</h4>
-        </div>
-    </section>
+    <main class="search-results-main">
+        <section class="top-container">
+            <div class="large-logo-img">
+                <img src="./media/large-logo.png" alt="Large logo for Re-Freshed">
+            </div>
 
-    <main>
-    <section class="side-bar recipes-section">
-        <article class="recipes-filter-section">
-            <form class="recipe-filter-form" action="/recipes" method="GET">
-                <fieldset>
-                    <h4>Filter Recipes</h4>
+            <div class="text-container">
+                <h2>Recipe Results</h2>
+                <h4>Showing <b><?php echo htmlspecialchars($result_count)?></b> results for your search of <em>"<?php echo htmlspecialchars($_POST['search-bar'])?>"</em></h4>
+            </div>
+        </section>
 
-                    <div class="search-bar-container">
-                        <input class="search-input" id="search-input" type="search" name="search-bar" placeholder="Search..." aria-label="search">
-                    </div>
-                    <div class="filter-category">
-                        <label>Cuisine:</label>
-                                <div class="checkbox-container">
-                                <label><input type="checkbox" name="cuisine" value="italian"> Italian</label>
-                                <label><input type="checkbox" name="cuisine" value="mexican"> Mexican</label>
-                                <label><input type="checkbox" name="cuisine" value="asian"> Asian</label>
-                                <label><input type="checkbox" name="cuisine" value="american"> American</label>
+        <section class="search-bar-container">
+            <div class="search-text">
+                <h2>
+                    Search
+                </h2>
+            </div>
+            <div>
+                <form class="search-bar" action="search-results.php" method="POST">
+                    <input class="search-input" id="search-input" type="search" name="search-bar" placeholder="Search..." aria-label="search-bar">
+                      <button type="submit" class="search-submit-button">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+                            </svg>
+                      </button>
+                </form>
+            </div>
+        </section>
+
+        <section class="recipes-results-section">
+            <!-- <article class="recipes-filter-section">
+                <form class="recipe-filter-form" action="search-results.php" method="GET">
+                    <input type="hidden" name="filters-form">
+                    <fieldset>
+                        <h4>Filter</h4>
+                        <div class="filter-category">
+                            <label>Cuisine:</label>
+                                    <div class="checkbox-container">
+                                    <label><input type="checkbox" name="cuisine" value="italian"> American</label>
+                                    <label><input type="checkbox" name="cuisine" value="mexican"> Mexican</label>
+                                    <label><input type="checkbox" name="cuisine" value="asian"> Asian</label>
+                                    <label><input type="checkbox" name="cuisine" value="american">Italian</label>
+                                    <label><input type="checkbox" name="cuisine" value="french">French</label>
+                                    <label><input type="checkbox" name="cuisine" value="mediterranean">Mediterranean</label>
+                                </div>
+                        </div>
+                        <div class="filter-category">
+                            <label>Dietary Preferences:</label>
+                            <div class="checkbox-container">
+                                <label><input type="checkbox" name="diet" value="vegetarian"> Vegetarian</label>
+                                <label><input type="checkbox" name="diet" value="meat">Meat</label>
+                                <label><input type="checkbox" name="diet" value="seafood">Seafood</label>
+                                <label><input type="checkbox" name="diet" value="vegetables">Vegetables</label>
                             </div>
-                    </div>
-                    <div class="filter-category">
-                        <label>Dietary Preferences:</label>
-                        <div class="checkbox-container">
-                            <label><input type="checkbox" name="diet" value="vegan"> Vegan</label>
-                            <label><input type="checkbox" name="diet" value="vegetarian"> Vegetarian</label>
-                            <label><input type="checkbox" name="diet" value="gluten-free"> Meat</label>
                         </div>
-                    </div>
-                    <div class="filter-category">
-                        <label>Meal Type:</label>
-                        <div class="checkbox-container">
-                            <label><input type="checkbox" name="meal" value="breakfast"> Breakfast</label>
-                            <label><input type="checkbox" name="meal" value="lunch"> Lunch</label>
-                            <label><input type="checkbox" name="meal" value="dinner"> Dinner</label>
-                            <label><input type="checkbox" name="meal" value="snack"> Snack</label>
+                        <div class="filter-group">
+                            <label><input type="submit"></label>
                         </div>
-                    </div>
-                    <!-- <div class="filter-group">
-                        <button type="submit">Apply Filters</button>
-                        <button type="reset">Reset</button>
-                    </div> -->
-                </fieldset>
-            </form>
-</article>
+                    </fieldset>
+                </form>
+            </article> -->
+            
             <div class="recipe-container">
                 <?php
                 if (isset($result) && $result->num_rows > 0) {
@@ -91,28 +105,37 @@
                     $image_path = $image_folder . "/cover-photo.jpeg";
                 ?>
                         
-                        <div class="recipe-card">
-                            <a href="<?php echo $recipe_link; ?>">
-                                <div class="recipe-img">
-                                    <img src="<?php echo $image_path; ?>" alt="<?php echo $row['title'] . " cover image"; ?>">
-                                </div>
-                                <div class="recipe-name">
-                                    <h4><?php echo htmlspecialchars($row['title']); ?></h4>
-                                </div>
-                                <div class="recipe-description">
-                                    <p><?php echo "w/ " . htmlspecialchars($row['subheading']); ?></p>
-                                </div>
-                            </a>
-                        </div>
+                    <div class="recipe-card">
+                        <a href="<?php echo $recipe_link; ?>">
+                            <div class="recipe-img">
+                                <img src="<?php echo $image_path; ?>" alt="<?php echo $row['title'] . " cover image"; ?>">
+                            </div>
+                            <div class="recipe-name">
+                                <h4><?php echo htmlspecialchars($row['title']); ?></h4>
+                            </div>
+                            <div class="recipe-description">
+                                <p><?php echo "w/ " . htmlspecialchars($row['subheading']); ?></p>
+                            </div>
+                        </a>
+                    </div>
 
                     <?php
-                          }
-                      } else {
-                          echo "<p>No recipes found.</p>";
-                      }
-                    ?>
+                        }
+                    } else {
+                    ?> <div>
+                            <h1>No recipes found.</h1>
+                            <h4>Try searching for a different phrase</h4>
+                        </div>
+                    <?php
+                        }
+                        ?>
             </div>
         </section>
     </main>
+
+    <footer>
+        <img src="./media/large-logo-v2.png" alt="Large logo for Re-Freshed">
+        <a href="help.html">Guide</a>
+    </footer>
 </body>
 </html>

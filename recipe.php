@@ -48,7 +48,6 @@ $image_folder_link = "./media/recipe-images/Recipe_" . $recipe['img_1'] . "_with
 
         <nav>
             <ul class="nav-links">
-                <li><a href="all-recipes.php">All Recipes</a></li>
                 <li><a href="help.html">Help</a></li>
             </ul>
         </nav>
@@ -96,8 +95,8 @@ $image_folder_link = "./media/recipe-images/Recipe_" . $recipe['img_1'] . "_with
                 </div>
             </div>
         </section>    
-        <section>
-            <h1>Steps</h1>
+        <section class="remove-border">
+            <h1>Recipe Steps</h1>
         </section>       
         <section class="recipe-containers">
                 <?php 
@@ -107,7 +106,7 @@ $image_folder_link = "./media/recipe-images/Recipe_" . $recipe['img_1'] . "_with
                 ?>
                 <div class="recipe-information-left">
                     <div class="recipe-heading">
-                        <h3><?php echo htmlspecialchars($step_number)?> </h3>
+                        <h2>Step <?php echo htmlspecialchars($step_number)?>: </h2>
                     </div>
                     <div class="recipe-steps">
                         <p><?php echo htmlspecialchars($step) ?></p>
@@ -116,16 +115,22 @@ $image_folder_link = "./media/recipe-images/Recipe_" . $recipe['img_1'] . "_with
                 <div class="recipe-information-right">
                     <div class="recipe-img">
                         <img src="<?php $image_link = $image_folder_link . "/step-" . $step_number . ".jpeg"; echo $image_link; ?>" alt="<?php "Image of step " . $step_number . " of recipe" ?>">
-                    </div>
+                    </div><div class="line"></div>
                 </div>
                 <?php
                     $step_number += 1;
                     }
                 ?>
         </section>
+
         <section class="recipe-conclusion">
             <h1>And you're done!</h1>
         </section>
     </main>
+
+    <footer>
+        <img src="./media/large-logo-v2.png" alt="Large logo for Re-Freshed">
+        <a href="help.html">Guide</a>
+    </footer>
 </body>
 </html>
